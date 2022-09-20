@@ -20,13 +20,12 @@
                         </div>
                         <button type="submit" class="btn btn-primary">登入</button>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
+
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 
 <script>
@@ -34,14 +33,14 @@
         const fd_l = new FormData(document.mbLoginForm);
 
         fetch('mb_login_api.php', {
-            method: 'POST',
-            body: fd_l,
-        })
-        .then(r => r.json())
-        .then(obj_l => {
-            console.log(obj_l);
-            location.href = 'basepage.php';
-        })
+                method: 'POST',
+                body: fd_l,
+            })
+            .then(r => r.json())
+            .then(obj_l => {
+                console.log(obj_l);
+                location.href = 'basepage.php';
+            })
 
     }
 </script>
