@@ -71,10 +71,15 @@
             .then(r => r.json())
             .then(obj => {
                 console.log(obj);
+                if (!obj.success) {
+                    alert(obj.error);
+                } else {
+                    alert('新增成功');
+                    location.href = 'basepage-no-admin.php';
+                }
             })
 
     }
-
 </script>
 
 <?php include __DIR__ . '/parts/html-foot.php'; ?>

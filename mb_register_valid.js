@@ -2,6 +2,7 @@
 
 
         // 驗證帳號
+        // 帳號不能重複
 
         // 驗證密碼
         // const inpPassword = document.querySelector('#mbrPassword');

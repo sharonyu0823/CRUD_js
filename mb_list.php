@@ -143,14 +143,14 @@ $output = [
                     <?php foreach ($rows as $r) : ?>
                         <tr>
                             <td>
-                                <a href="#">
+                                <a href="mb_delete.php?sid=<?= $r['member_sid'] ?>" onclick="return confirm('確定要刪除編號<?= $r['member_sid'] ?>: <?= $r['member_surname'] ?><?= $r['member_forename'] ?>的資料嗎?')">
                                     <i class="fa-solid fa-trash-can trash"></i>
                                 </a>
                             </td>
                             <td><?= $r['member_sid'] ?></td>
                             <td><?= $r['member_surname'] ?></td>
                             <td><?= $r['member_forename'] ?></td>
-                            <td><?= $r['member_nickname'] ?></td>
+                            <td><?= htmlentities($r['member_nickname']) ?></td>
                             <td><?= $r['member_email'] ?></td>
                             <td><?= $r['created_at'] ?></td>
                             <td><?= $r['last_login_at'] ?></td>
@@ -171,7 +171,7 @@ $output = [
                             <? //= $r['member_status'] == 1 ? 'checked' : '' 
                             ?>
                             <td>
-                                <a href="#">
+                                <a href="mb_edit.php?sid=<?= $r['member_sid'] ?>">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             </td>
@@ -188,6 +188,7 @@ $output = [
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
     const table = document.querySelector('table');
+    /*
     table.addEventListener('click', function(event) {
         const t = event.target; //點到的東西
         // console.log(event.target);
@@ -200,7 +201,7 @@ $output = [
             // console.log(t.closest('tr').querySelectorAll('td'));
             console.log(t.closest('tr').querySelectorAll('td')[2].innerHTML);
         }
-    });
+    });*/
 </script>
 
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
