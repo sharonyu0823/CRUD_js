@@ -17,30 +17,11 @@ $output = [
     'postData' => $_POST, //除錯用
 ];
 
-$postData = [
-    'member_status' => 1,
-];
-
 // 登入帳號密碼的驗證
 // 是不是只能寫required
 
 
-// if(!empty($_POST['mbrForename']) and !empty($_POST['mbrSurname'])){
-//     echo 1;
-// }else{
-//     echo 2;
-// }
-
-// if (!empty($_POST['mbrSurname']) and !empty($_POST['mbrForename']) and !empty($_POST['mbrNickname']) and !empty($_POST['mbrAccount']) and !empty($_POST['mbrPassword']) and !empty($_POST['mbrCheck'])) {
-//     $output['error'] = '參數不足';
-//     $output['postData'] = '';
-
-//     echo json_encode($output, JSON_UNESCAPED_UNICODE);
-//     exit; //結束程式
-// }
-
-
-if (empty($_POST['mbrSurname']) or empty($_POST['mbrForename']) or empty($_POST['mbrNickname']) or empty($_POST['mbrAccount']) or empty($_POST['mbrPassword']) or empty($_POST['mbrCheck'])) {
+if (empty($_POST['mbrSurname']) or empty($_POST['mbrForename']) or empty($_POST['mbrNickname']) or empty($_POST['mbrAccount']) or empty($_POST['mbrPassword1']) or empty($_POST['mbrPassword2']) or empty($_POST['mbrCheck'])) {
     $output['error'] = '參數不足';
     $output['postData'] = '';
 
@@ -91,15 +72,14 @@ $stmt->execute([
     $_POST['mbrAccount'],
     $_POST['mbrPassword1'],
     $_POST['mbrCheck'],
-    $postData['member_status'],
+    '1',
 ]);
 
-if($stmt->rowCount()){
+if ($stmt->rowCount()) {
     $output['success'] = true;
 } else {
-    if(empty($output['error']))
+    if (empty($output['error']))
         $output['error'] = '資料沒有新增';
-
 }
 
 

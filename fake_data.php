@@ -31,7 +31,7 @@ $sql = "INSERT INTO `member`(
 
 $stmt = $pdo->prepare($sql);
 
-for ($i = 0; $i < 10; $i++) {
+for ($i = 0; $i < 30; $i++) {
     shuffle($lasts);
     shuffle($firsts);
     shuffle($nickname);
