@@ -13,12 +13,25 @@ $postData = [
 ];
 
 $sql = "INSERT INTO `member`(
-    `member_surname`, `member_forename`, `member_nickname`,
-    `member_email`, `member_password`, `member_agreement`,
-    `created_at`, `last_login_at`, `member_status`) VALUES (
-    ?, ?, ?,
-    ?, ?, ?,
-    NOW(), NOW(), ?
+    `member_surname`,
+    `member_forename`,
+    `member_nickname`,
+    `member_email`,
+    `member_password`,
+    `member_agreement`,
+    `created_at`,
+    `last_login_at`,
+    `member_status`
+    ) VALUES (
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    NOW(),
+    NOW(),
+    ?
 )";
 
 $stmt = $pdo->prepare($sql);

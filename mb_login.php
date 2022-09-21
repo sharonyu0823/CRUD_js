@@ -1,5 +1,5 @@
 <?php include __DIR__ . '/parts/html-head.php'; ?>
-<?php include __DIR__ . '/parts/nav-bar_SY.php'; ?>
+<?php include __DIR__ . '/parts/nav-bar-no-admin.php'; ?>
 
 <div class="container">
     <div class="row">
@@ -39,7 +39,7 @@
             .then(r => r.json())
             .then(obj_l => {
                 console.log(obj_l);
-                location.href = 'basepage.php';
+                location.href = 'basepage-no-admin.php';
             })
 
     }

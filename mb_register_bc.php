@@ -27,15 +27,15 @@
                             <input type="email" class="form-control" name="mbrAccount" id="mbrAccount">
                         </div>
                         <div class="mb-3">
-                            <label for="mbrPassword1" class="form-label">註冊密碼</label>
-                            <input type="text" class="form-control" name="mbrPassword1" id="mbrPassword1" placeholder="請設定8位英數特殊字元混合密碼，英文需區分大小寫">
+                            <label for="mbrPassword" class="form-label">註冊密碼</label>
+                            <input type="text" class="form-control" name="mbrPassword" id="mbrPassword" placeholder="請設定8位英數特殊字元混合密碼，英文需區分大小寫">
                         </div>
                         <div class="mb-3">
-                            <label for="mbrPassword2" class="form-label">密碼確認</label>
-                            <input type="text" class="form-control" name="mbrPassword2" id="mbrPassword2" placeholder="請再輸入一次密碼">
+                            <label for="mbrPassword" class="form-label">密碼確認</label>
+                            <input type="text" class="form-control" name="mbrPassword" id="mbrPassword" placeholder="請再輸入一次密碼">
                         </div>
                         <div class="mb-4 form-check">
-                            <input type="checkbox" class="form-check-input" name="mbrCheck" id="mbrCheck" value="1">
+                            <input type="checkbox" class="form-check-input" name="mbrCheck" id="mbrCheck">
                             <label class="form-check-label" for="mbrCheck">我同意 <a href="https://drive.google.com/file/d/1RCTH1c06K3D6d6oLE1DIUzG-2ONVitzX/view" target="_blank">惜食戰士條款</a></label>
                         </div>
                         <button type="submit" class="btn btn-primary" id="mbr_button">立即註冊</button>
@@ -46,8 +46,6 @@
     </div>
 </div>
 
-
-
 <!-- reference: https://www.momoshop.com.tw/customer/CustomerInput.jsp -->
 
 
@@ -56,12 +54,23 @@
 <script>
     function checkForm() {
         const fd_r = new FormData(document.mbRegistForm);
+        // 驗證空值
 
-        for (let k of fd_r.keys()) {
-            console.log(`${k}: ${fd_r.get(k)}`);
-        }
 
-        // TODO: 檢查欄位資料
+        // 驗證帳號
+
+        // 驗證密碼
+        // const inpPassword = document.querySelector('#mbrPassword');
+
+        // const Password = inpPassword.value;
+
+        // if (checkPassword(Password)) {
+        //     alert(`Password ${Password}`)
+        // } else {
+        //     alert('請輸入密碼');
+        // }
+
+        // 密碼確認
 
         // fetch api
         fetch('mb_register_api.php', {
@@ -69,12 +78,38 @@
                 body: fd_r,
             })
             .then(r => r.json())
-            .then(obj => {
-                console.log(obj);
+            .then(obj_r => {
+                console.log(obj_r);
             })
 
     }
 
+    // function checkPassword(inpPassword) {
+    //     const trimPassword = inpPassword.trim();
+    //     let isValid = true;
+    //     if (trimPassword === "" || trimPassword.length === 0) {
+    //         isValid = false;
+    //         console.log("密碼不能為空白");
+    //     } else if (trimPassword.length <= 7) {
+    //         isValid = false;
+    //         console.log("密碼最少8個字元");
+    //     } else if (!/[A-Z]/.test(trimPassword)) {
+    //         isValid = false;
+    //         console.log("密碼需要有大寫英文字母");
+    //     } else if (!/[A-Z]/.test(trimPassword)) {
+    //         isValid = false;
+    //         console.log("密碼需要有小寫英文字母");
+    //     } else if (!/\d/.test(trimPassword)) {
+    //         isValid = false;
+    //         console.log("密碼至少要有一個數字");
+    //     } else if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(trimPassword)) {
+    //         isValid = false;
+    //         console.log("密碼至少要有一個特殊字元");
+    //     }
+
+    //     return isValid;
+
+    // }
 </script>
 
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
