@@ -1,5 +1,6 @@
 <?php require __DIR__ . '/parts/connect_db.php';
-$pageName = 'member';
+
+$pageName = 'mb_list';
 
 $perPage = 4; //一頁有幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -26,7 +27,7 @@ if ($totalRows) {
     }
 
     // 設定分頁
-    $sql = sprintf("SELECT * FROM member ORDER BY member_sid ASC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT * FROM member ORDER BY member_sid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 
     $rows = $pdo->query($sql)->fetchAll();
 };

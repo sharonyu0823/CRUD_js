@@ -1,6 +1,8 @@
 <?php
 include __DIR__ . '/parts/connect_db.php';
 
+$pageName = 'mb_delete';
+
 $sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
 
 $sql = "DELETE FROM `member` WHERE member_sid = {$sid}";

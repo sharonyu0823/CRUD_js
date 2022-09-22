@@ -31,7 +31,7 @@ $sql = "INSERT INTO `member`(
 
 $stmt = $pdo->prepare($sql);
 
-for ($i = 0; $i < 50; $i++) {
+for ($i = 0; $i < 10; $i++) {
     shuffle($lasts);
     shuffle($firsts);
     shuffle($nickname);
@@ -39,7 +39,7 @@ for ($i = 0; $i < 50; $i++) {
     $member_forename = $firsts[0];
     $member_nickname = $nickname[0];
     $member_email = 'mail' . rand(10000, 99999) . '@test.com';
-    $member_password = rand(10000, 99999);
+    $member_password = password_hash(rand(10000, 99999), PASSWORD_DEFAULT);
     $member_agreement = 1;
     $member_status = rand(0, 1);
 

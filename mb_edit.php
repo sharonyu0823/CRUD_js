@@ -1,5 +1,7 @@
 <?php include __DIR__ . '/parts/connect_db.php';
 
+$pageName = 'mb_edit';
+
 $sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
 
 if (empty($sid)) {
@@ -58,14 +60,13 @@ if (empty($r)) {
                             <label for="mbeAccount" class="form-label">註冊信箱</label>
                             <input type="email" class="form-control" name="mbeAccount" id="mbeAccount" value="<?= $r['member_email'] ?>" disabled>
                         </div>
-                        <input class="form-check-input mb-4" type="radio" name="enable_disable" id="enable" value="1" <?= $r['member_status'] == '1' ? 'checked' : '' ?>>
+                        <input class="form-check-input mb-4" type="radio" name="enable_disable" id="enable" value="1" <?= $r['member_status'] == '1' ? 'checked' : '' ?> onclick="return confirm('確定要啟用帳號嗎?')">
                         <label class="form-check-label" for="enable">
                             啟用
                         </label>
                         &nbsp&nbsp&nbsp
-                        <input class="form-check-input mb-4" type="radio" name="enable_disable" id="disable" value="0" <?= $r['member_status'] == '0' ? 'checked' : '' ?>>
+                        <input class="form-check-input mb-4" type="radio" name="enable_disable" id="disable" value="0" <?= $r['member_status'] == '0' ? 'checked' : '' ?> onclick="return confirm('確定要停用帳號嗎?')">
                         <label class="form-check-label" for="disable">
-
                             停用
                         </label>
                         <br>
@@ -76,10 +77,11 @@ if (empty($r)) {
         </div>
     </div>
 </div>
-
+<?php /*$r['member_status'] = ('0' ? 'checked' : '') */ ?>
 <?php /*print_r($_POST); */ ?>
-<?php /* echo $r['member_email'] ?>
-<?php echo $r['member_status'] */ ?>
+<?php /*echo $r['member_email'] */ ?>
+<?php /*echo $r['member_status']  */ ?>
+
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 
@@ -104,12 +106,10 @@ if (empty($r)) {
                 if (!obj.success) {
                     alert(obj.error);
                 } else {
-                    alert('修改成功')
+                    alert('修改成功');
                     location.href = 'mb_list.php';
                 }
             })
-
-
 
     }
 </script>

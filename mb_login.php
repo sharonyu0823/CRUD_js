@@ -1,3 +1,8 @@
+<?php include __DIR__ . '/parts/connect_db.php';
+
+$pageName = 'mb_login';
+?>
+
 <?php include __DIR__ . '/parts/html-head.php'; ?>
 <?php include __DIR__ . '/parts/nav-bar-no-admin.php'; ?>
 
@@ -9,7 +14,7 @@
                     <h5 class="card-title mb-4 fw-bolder">登入</h5>
 
                     <!-- 表單填寫 -->
-                    <form name="mbLoginForm" onsubmit="checkForm(); return false;">
+                    <form name="mbLoginForm" onsubmit="checkForm(); return false;" novalidate>
                         <div class="mb-3">
                             <label for="mblAccount" class="form-label">帳號</label>
                             <input type="email" class="form-control" name="mblAccount" id="mblAccount">
@@ -39,7 +44,13 @@
             .then(r => r.json())
             .then(obj_l => {
                 console.log(obj_l);
-                location.href = 'basepage-no-admin.php';
+                if (!obj_l.success) {
+                    alert(obj_l.error);
+                } else {
+                    alert('登入成功');
+                    location.href = 'basepage-no-admin.php';;
+                }
+
             })
 
     }

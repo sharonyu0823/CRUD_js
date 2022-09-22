@@ -14,7 +14,7 @@ $output = [
 // 是不是只能寫required
 
 
-if (empty($_POST['mbrSurname']) or empty($_POST['mbrForename']) or empty($_POST['mbrNickname']) or empty($_POST['mbrAccount']) or empty($_POST['mbrPassword1']) or empty($_POST['mbrPassword2']) or empty($_POST['mbrCheck'])) {
+if (empty($_POST['mbrSurname']) or empty($_POST['mbrForename']) or empty($_POST['mbrAccount']) or empty($_POST['mbrPassword1']) or empty($_POST['mbrPassword2']) or empty($_POST['mbrCheck'])) {
     $output['error'] = '參數不足';
     $output['postData'] = '';
 
@@ -56,7 +56,7 @@ try {
         $_POST['mbrForename'],
         $_POST['mbrNickname'],
         $_POST['mbrAccount'],
-        $_POST['mbrPassword1'],
+        password_hash($_POST['mbrPassword1'], PASSWORD_DEFAULT),
         $_POST['mbrCheck'],
         '1',
     ]);

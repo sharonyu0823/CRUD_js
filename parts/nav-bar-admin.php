@@ -25,7 +25,7 @@ if (!isset($_SESSION)) {
                         <a class="nav-link <?= $pageName == 'base' ? 'active' : '' ?>" href="basepage-admin.php">首頁</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link <?= $pageName == 'member' ? 'active' : '' ?>" href="mb_list.php">一般會員</a>
+                        <a class="nav-link <?= $pageName == 'mb_list' ? 'active' : '' ?>" href="mb_list.php">一般會員</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">商家會員</a>
