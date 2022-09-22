@@ -36,33 +36,34 @@ if (empty($r)) {
                 <div class="card-body">
                     <h5 class="card-title mb-4 fw-bolder">基本資料修改</h5>
 
-                    <form name="mbEditForm">
+                    <form name="mbEditForm" onsubmit="checkForm(); return false;">
+                        <input type="hidden" name="sid" value="<?= $r['member_sid'] ?>">
                         <div class="mb-3">
                             <label for="mbeNum" class="form-label">會員編號</label>
                             <input type="text" class="form-control" name="mbeNum" id="mbeNum" value="<?= $r['member_sid'] ?>" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="mbeSurname" class="form-label">姓氏</label>
-                            <input type="text" class="form-control" name="mbeSurname" id="mbeSurname" value="<?= $r['member_surname'] ?>">
+                            <input type="text" class="form-control" name="mbeSurname" id="mbeSurname" value="<?= htmlentities($r['member_surname']) ?>">
                         </div>
                         <div class="mb-3">
                             <label for="mbeForename" class="form-label">名字</label>
-                            <input type="text" class="form-control" name="mbeForename" id="mbeForename" value="<?= $r['member_forename'] ?>">
+                            <input type="text" class="form-control" name="mbeForename" id="mbeForename" value="<?= htmlentities($r['member_forename']) ?>">
                         </div>
                         <div class="mb-3">
                             <label for="mbeNickname" class="form-label">暱稱</label>
-                            <input type="text" class="form-control" name="mbeNickname" id="mbeNickname" value="<?= $r['member_nickname'] ?>">
+                            <input type="text" class="form-control" name="mbeNickname" id="mbeNickname" value="<?= htmlentities($r['member_nickname']) ?>">
                         </div>
                         <div class="mb-4">
                             <label for="mbeAccount" class="form-label">註冊信箱</label>
                             <input type="email" class="form-control" name="mbeAccount" id="mbeAccount" value="<?= $r['member_email'] ?>" disabled>
                         </div>
-                        <input class="form-check-input mb-4" type="radio" name="enable_disable" id="enable" value="<?= $r['member_status'] = '1' ?>">
+                        <input class="form-check-input mb-4" type="radio" name="enable_disable" id="enable" value="1" <?= $r['member_status'] == '1' ? 'checked' : '' ?>>
                         <label class="form-check-label" for="enable">
                             啟用
                         </label>
                         &nbsp&nbsp&nbsp
-                        <input class="form-check-input mb-4" type="radio" name="enable_disable" id="disable" value="<?= $r['member_status'] = '0' ? 'checked' : '' ?>">
+                        <input class="form-check-input mb-4" type="radio" name="enable_disable" id="disable" value="0" <?= $r['member_status'] == '0' ? 'checked' : '' ?>>
                         <label class="form-check-label" for="disable">
 
                             停用
@@ -75,14 +76,16 @@ if (empty($r)) {
         </div>
     </div>
 </div>
-<?php /*echo $r['member_email'] ?>
+
+<?php /*print_r($_POST); */ ?>
+<?php /* echo $r['member_email'] ?>
 <?php echo $r['member_status'] */ ?>
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 
 <script>
     function checkForm() {
-        const fd = new FormData(document.form1);
+        const fd = new FormData(document.mbEditForm);
 
         for (let k of fd.keys()) {
             // keys = An object that can be iterated over 可迭代
@@ -91,18 +94,22 @@ if (empty($r)) {
 
         // TODO: 檢查欄位資料
 
-        fetch('', {
-            method: 'POST',
-            body: fd
-        }).then(r => r.json()).then(obj => {
-            console.log(obj);
-            if (!obj.success) {
-                alert(obj.error);
-            } else {
-                alert('修改成功')
-                location.href = 'mb_list.php';
-            }
-        })
+        fetch('mb_edit_api.php', {
+                method: 'POST',
+                body: fd
+            })
+            .then(r => r.json())
+            .then(obj => {
+                console.log(obj);
+                if (!obj.success) {
+                    alert(obj.error);
+                } else {
+                    alert('修改成功')
+                    location.href = 'mb_list.php';
+                }
+            })
+
+
 
     }
 </script>
