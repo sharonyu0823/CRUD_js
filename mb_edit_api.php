@@ -11,13 +11,13 @@ $output = [
 
 
 
-// if (empty($_POST['mbeSurname']) or empty($_POST['mbeForename'])) {
-//     $output['error'] = '參數不足';
-//     $output['postData'] = '';
+if (empty($_POST['mbeSurname']) or empty($_POST['mbeForename'])) {
+    $output['error'] = '參數不足';
+    $output['postData'] = '';
 
-//     echo json_encode($output, JSON_UNESCAPED_UNICODE);
-//     exit; //結束程式
-// }
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit; //結束程式
+}
 
 
 
