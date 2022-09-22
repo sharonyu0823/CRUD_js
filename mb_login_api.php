@@ -56,9 +56,11 @@ $sql2 = "UPDATE member SET
 `last_login_at`=?
 WHERE member_email = ?";
 
+date_default_timezone_set('Asia/Taipei');
+
 $stmt2 = $pdo->prepare($sql2);
 $stmt2->execute([
-    date("Y-m-d h:i:s"),
+    date("Y-m-d H:i:s"),
     $_POST['mblAccount'],
 ]);
 
