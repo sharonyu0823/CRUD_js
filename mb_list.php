@@ -68,9 +68,19 @@ $output = [
         <div class="col">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
+                    <?php /*<li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page = 1 ?>">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </a>
+                    </li> */ ?>
+                    <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page == 1 ?>">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </a>
+                    </li>
                     <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
                         <a class="page-link" href="?page=<?= $page - 1 ?>">
-                            <i class="fa-solid fa-circle-chevron-left"></i>
+                            <i class="fa-solid fa-chevron-left"></i>
                         </a>
                     </li>
 
@@ -91,8 +101,11 @@ $output = [
 
                         $right = $page + $right; //以目前頁次為中心點 往右要顯示多少頁面
                     }
+                ?>
 
 
+
+                    <?php
                     for ($i = $left; $i <= $right; $i++) :
 
                     ?>
@@ -101,6 +114,7 @@ $output = [
                         </li>
 
                     <?php
+                    
 
                     endfor;
 
@@ -109,9 +123,20 @@ $output = [
 
                     <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
                         <a class="page-link" href="?page=<?= $page + 1 ?>">
-                            <i class="fa-solid fa-circle-chevron-right"></i>
+                            <i class="fa-solid fa-chevron-right"></i>
                         </a>
                     </li>
+                    <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $totalPages ?>">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </a>
+                    </li>
+                    <?php /* <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $totalPages ?>">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </a>
+                    </li> */ ?>
+
                 </ul>
             </nav>
         </div>
@@ -156,7 +181,7 @@ $output = [
                             <td><?= $r['created_at'] ?></td>
                             <td><?= $r['last_login_at'] ?></td>
                             <td><?= $r['member_status'] == 1 ? '啟用' : '停用' ?></td>
-                            
+
                             <!-- radio同一組name只能選一個 -->
 
                             <td>
