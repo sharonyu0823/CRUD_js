@@ -101,11 +101,8 @@ $output = [
 
                         $right = $page + $right; //以目前頁次為中心點 往右要顯示多少頁面
                     }
-                ?>
 
 
-
-                    <?php
                     for ($i = $left; $i <= $right; $i++) :
 
                     ?>
@@ -114,12 +111,10 @@ $output = [
                         </li>
 
                     <?php
-                    
 
                     endfor;
 
                     ?>
-
 
                     <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
                         <a class="page-link" href="?page=<?= $page + 1 ?>">
@@ -131,11 +126,6 @@ $output = [
                             <i class="fa-solid fa-angles-right"></i>
                         </a>
                     </li>
-                    <?php /* <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $totalPages ?>">
-                            <i class="fa-solid fa-angles-right"></i>
-                        </a>
-                    </li> */ ?>
 
                 </ul>
             </nav>
