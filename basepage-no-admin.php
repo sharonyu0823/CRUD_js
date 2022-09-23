@@ -5,7 +5,7 @@ $pageName = 'baseNoAdmin';
 <?php
 include __DIR__ . '/parts/html-head.php'; ?>
 <?php
-include __DIR__ . '/parts/nav-bar-no-admin.php';
+include __DIR__ . '/parts/05-nav-bar-no-admin.php';
 ?>
 <?php
 include __DIR__ . '/parts/scripts.php'; ?>

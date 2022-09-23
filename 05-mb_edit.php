@@ -5,7 +5,7 @@ $pageName = 'mb_edit';
 $sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
 
 if (empty($sid)) {
-    header('Location: mb_list.php');
+    header('Location: 05-mb_list.php');
     exit;
 }
 
@@ -21,7 +21,7 @@ WHERE member_sid = {$sid}";
 
 $r = $pdo->query($sql)->fetch();
 if (empty($r)) {
-    header('Location: mb_list.php');
+    header('Location: 05-mb_list.php');
     exit;
 }
 
@@ -29,7 +29,7 @@ if (empty($r)) {
 ?>
 
 <?php include __DIR__ . '/parts/html-head.php'; ?>
-<?php include __DIR__ . '/parts/nav-bar-admin.php'; ?>
+<?php include __DIR__ . '/parts/05-nav-bar-admin.php'; ?>
 
 <div class="container">
     <div class="row">
@@ -96,7 +96,7 @@ if (empty($r)) {
 
         // TODO: 檢查欄位資料
 
-        fetch('mb_edit_api.php', {
+        fetch('05-mb_edit_api.php', {
                 method: 'POST',
                 body: fd
             })
@@ -107,7 +107,7 @@ if (empty($r)) {
                     alert(obj.error);
                 } else {
                     alert('修改成功');
-                    location.href = 'mb_list.php';
+                    location.href = '05-mb_list.php';
                 }
             })
 

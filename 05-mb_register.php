@@ -3,7 +3,7 @@ $pageName = 'mb_register';
 ?>
 
 <?php include __DIR__ . '/parts/html-head.php'; ?>
-<?php include __DIR__ . '/parts/nav-bar-no-admin.php'; ?>
+<?php include __DIR__ . '/parts/05-nav-bar-no-admin.php'; ?>
 
 <div class="container">
     <div class="row">
@@ -74,46 +74,46 @@ $pageName = 'mb_register';
 
         // }
 
-        const fd_r = new FormData(document.mbRegistForm);
-        for (const pair of fd_r.entries()) {
-            console.log(`${pair[0]}, ${pair[1]}`);
-        }
+        // const fd_r = new FormData(document.mbRegistForm);
+        // for (const pair of fd_r.entries()) {
+        //     console.log(`${pair[0]}, ${pair[1]}`);
+        // }
 
-        for (let k of fd_r.keys()) {
-            console.log(`${k}: ${fd_r.get(k)}`);
-            checkEmpty(fd_r.get(k))
-        }
+        // for (let k of fd_r.keys()) {
+        //     console.log(`${k}: ${fd_r.get(k)}`);
+        //     checkEmpty(fd_r.get(k))
+        // }
 
         // https://developer.mozilla.org/en-US/docs/Web/API/FormData/entries
 
         // 驗證密碼規格
-        const inpPassword = document.querySelector('#mbrPassword');
+        // const inpPassword = document.querySelector('#mbrPassword');
 
-        const Password = inpPassword.value;
+        // const Password = inpPassword.value;
 
-        if (checkPassword(Password)) {
-            alert(`Password ${Password}`)
-        } else {
-            alert('請輸入密碼');
-        }
+        // if (checkPassword(Password)) {
+        //     alert(`Password ${Password}`)
+        // } else {
+        //     alert('請輸入密碼');
+        // }
 
 
         // fetch api
 
-        // fetch('mb_register_api.php', {
-        //         method: 'POST',
-        //         body: fd_r,
-        //     })
-        //     .then(r => r.json())
-        //     .then(obj => {
-        //         console.log(obj);
-        //         if (!obj.success) {
-        //             alert(obj.error);
-        //         } else {
-        //             alert('新增成功');
-        //             location.href = 'basepage-no-admin.php';
-        //         }
-        //     })
+        fetch('05-mb_register_api.php', {
+                method: 'POST',
+                body: fd_r,
+            })
+            .then(r => r.json())
+            .then(obj => {
+                console.log(obj);
+                if (!obj.success) {
+                    alert(obj.error);
+                } else {
+                    alert('新增成功');
+                    location.href = 'basepage-no-admin.php';
+                }
+            })
 
     }
 </script>

@@ -9,7 +9,7 @@ $sql = "DELETE FROM `member` WHERE member_sid = {$sid}";
 
 $pdo->query($sql);
 
-$come_from = 'mb_list.php';
+$come_from = '05-mb_list.php';
 
 if (!empty($_SERVER['HTTP_REFERER'])) {
     $come_from = $_SERVER['HTTP_REFERER'];

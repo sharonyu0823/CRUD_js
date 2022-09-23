@@ -4,7 +4,7 @@ $pageName = 'mb_login';
 ?>
 
 <?php include __DIR__ . '/parts/html-head.php'; ?>
-<?php include __DIR__ . '/parts/nav-bar-no-admin.php'; ?>
+<?php include __DIR__ . '/parts/05-nav-bar-no-admin.php'; ?>
 
 <div class="container">
     <div class="row">
@@ -37,7 +37,7 @@ $pageName = 'mb_login';
     function checkForm() {
         const fd_l = new FormData(document.mbLoginForm);
 
-        fetch('mb_login_api.php', {
+        fetch('05-mb_login_api.php', {
                 method: 'POST',
                 body: fd_l,
             })

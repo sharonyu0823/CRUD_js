@@ -5,7 +5,7 @@ $pageName = 'baseAdmin';
 <?php
 include __DIR__ . '/parts/html-head.php'; ?>
 <?php
-include __DIR__ . '/parts/nav-bar-admin.php';
+include __DIR__ . '/parts/05-nav-bar-admin.php';
 ?>
 <div class="container">
     <?php if (!empty($_SESSION['admin'])) : ?>

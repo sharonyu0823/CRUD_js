@@ -60,7 +60,7 @@ $output = [
         color: #354179;
     }
 </style>
-<?php include __DIR__ . '/parts/nav-bar-admin.php'; ?>
+<?php include __DIR__ . '/parts/05-nav-bar-admin.php'; ?>
 
 <div class="container">
 
@@ -159,7 +159,7 @@ $output = [
                     <?php foreach ($rows as $r) : ?>
                         <tr>
                             <td>
-                                <a href="mb_delete.php?sid=<?= $r['member_sid'] ?>" onclick="return confirm('確定要刪除編號<?= $r['member_sid'] ?>: <?= $r['member_surname'] ?><?= $r['member_forename'] ?>的資料嗎?')">
+                                <a href="05-mb_delete.php?sid=<?= $r['member_sid'] ?>" onclick="return confirm('確定要刪除編號<?= $r['member_sid'] ?>: <?= $r['member_surname'] ?><?= $r['member_forename'] ?>的資料嗎?')">
                                     <i class="fa-solid fa-trash-can trash"></i>
                                 </a>
                             </td>
@@ -175,7 +175,7 @@ $output = [
                             <!-- radio同一組name只能選一個 -->
 
                             <td>
-                                <a href="mb_edit.php?sid=<?= $r['member_sid'] ?>">
+                                <a href="05-mb_edit.php?sid=<?= $r['member_sid'] ?>">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             </td>

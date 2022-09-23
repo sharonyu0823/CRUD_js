@@ -40,14 +40,14 @@ if (!isset($_SESSION)) {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle <?= $pageName == 'mb_register' ? 'active' : '' ?>" role="button" data-bs-toggle="dropdown">註冊</a>
                             <ul class="dropdown-menu dropdown-menu-lg-end">
-                                <li><a class="dropdown-item" href="mb_register.php">會員</a></li>
+                                <li><a class="dropdown-item" href="05-mb_register.php">會員</a></li>
                                 <li><a class="dropdown-item" href="#">商家</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle <?= $pageName == 'mb_login' ? 'active' : '' ?>" role="button" data-bs-toggle="dropdown">登入</a>
                             <ul class="dropdown-menu dropdown-menu-lg-end">
-                                <li><a class="dropdown-item" href="mb_login.php">會員</a></li>
+                                <li><a class="dropdown-item" href="05-mb_login.php">會員</a></li>
                                 <li><a class="dropdown-item" href="#">商家</a></li>
                             </ul>
                         </li>
@@ -56,7 +56,7 @@ if (!isset($_SESSION)) {
                             <a class="nav-link"><?= empty($_SESSION['member']['nickname']) ? $_SESSION['member']['forename'] : $_SESSION['member']['nickname'] ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="mb_logout.php">登出</a>
+                            <a class="nav-link" href="05-mb_logout.php">登出</a>
                         </li>
                     <?php endif; ?>
                 </ul>
