@@ -61,9 +61,6 @@ $pageName = 'mb_register';
 <script>
     function checkForm() {
 
-
-
-
         // TODO: 檢查欄位資料
         let isValid = true;
 
@@ -76,6 +73,18 @@ $pageName = 'mb_register';
         // } else if (){
 
         // }
+
+        const fd_r = new FormData(document.mbRegistForm);
+        for (const pair of fd_r.entries()) {
+            console.log(`${pair[0]}, ${pair[1]}`);
+        }
+
+        for (let k of fd_r.keys()) {
+            console.log(`${k}: ${fd_r.get(k)}`);
+            checkEmpty(fd_r.get(k))
+        }
+
+        // https://developer.mozilla.org/en-US/docs/Web/API/FormData/entries
 
         // 驗證密碼規格
         const inpPassword = document.querySelector('#mbrPassword');
@@ -90,17 +99,6 @@ $pageName = 'mb_register';
 
 
         // fetch api
-        const fd_r = new FormData(document.mbRegistForm);
-        for (const pair of fd_r.entries()) {
-            console.log(`${pair[0]}, ${pair[1]}`);
-        }
-
-        for (let k of fd_r.keys()) {
-            console.log(`${k}: ${fd_r.get(k)}`);
-            checkEmpty(fd_r.get(k))
-        }
-
-        // https://developer.mozilla.org/en-US/docs/Web/API/FormData/entries
 
         // fetch('mb_register_api.php', {
         //         method: 'POST',
