@@ -33,7 +33,7 @@ if (empty($r)) {
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6 mx-auto">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title mb-4 fw-bolder">基本資料修改</h5>

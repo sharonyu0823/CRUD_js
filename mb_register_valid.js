@@ -86,3 +86,4 @@ function check2Password(inpPassword1, inpPassword2) {
 
     return isValid;
 }
+
