@@ -2,7 +2,7 @@
 
 $pageName = 'mb_list';
 
-$perPage = 4; //一頁有幾筆
+$perPage = 8; //一頁有幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 // page參數名稱自己決定 如果有設定就轉換成整數 沒有的話就第一頁
 
@@ -27,7 +27,7 @@ if ($totalRows) {
     }
 
     // 設定分頁
-    $sql = sprintf("SELECT * FROM member ORDER BY member_sid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT * FROM member ORDER BY member_sid ASC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 
     $rows = $pdo->query($sql)->fetchAll();
 };
@@ -156,21 +156,9 @@ $output = [
                             <td><?= $r['created_at'] ?></td>
                             <td><?= $r['last_login_at'] ?></td>
                             <td><?= $r['member_status'] == 1 ? '啟用' : '停用' ?></td>
-                            <?php /*<input class="form-check-input" type="radio" name="enabled_<?= $r['member_sid'] ?>" id="flexRadioDefault1" <?= $r['member_status'] == 1 ? 'checked' : '' ?>>
-                                <label class="form-check-label" for="enabled_<?= $r['member_sid'] ?>">
-                                    啟用
-                                </label>
-                                <input class="form-check-input" type="radio" name="enabled_<?= $r['member_sid'] ?>" id="flexRadioDefault2" <?= $r['member_status'] == 0 ? 'checked' : '' ?>>
-                                <label class="form-check-label" for="enabled_<?= $r['member_sid'] ?>">
-                                    停用
-                                </label>
-                                */ ?>
+                            
                             <!-- radio同一組name只能選一個 -->
 
-                            <? //= $r['member_status'] 
-                            ?>
-                            <? //= $r['member_status'] == 1 ? 'checked' : '' 
-                            ?>
                             <td>
                                 <a href="mb_edit.php?sid=<?= $r['member_sid'] ?>">
                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -187,22 +175,5 @@ $output = [
 </div>
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
-<script>
-    const table = document.querySelector('table');
-    /*
-    table.addEventListener('click', function(event) {
-        const t = event.target; //點到的東西
-        // console.log(event.target);
-
-        if (t.classList.contains('fa-trash-can')) {
-            t.closest('tr').remove();
-        }
-
-        if (t.classList.contains('fa-pen-to-square')) {
-            // console.log(t.closest('tr').querySelectorAll('td'));
-            console.log(t.closest('tr').querySelectorAll('td')[2].innerHTML);
-        }
-    });*/
-</script>
 
 <?php include __DIR__ . '/parts/html-foot.php'; ?>

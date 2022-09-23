@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+  
+    <input type="text" id="check2">
+    <script>
+
+        const test1 = '1234';
+        const test2 = document.querySelector('#check2');
+
+        test2.addEventListener('input', (event) => {
+            // const inpAccount = event.target.value;
+            // const trimAccount = inpAccount.trim();
+
+            let isValid = true;
+
+            if (test1 === test2.value) {
+                console.log("密碼皆相同");
+            } else {
+                isValid = false;
+                console.log("密碼不同");
+            };
+
+            return isValid;
+        })
+
+    </script>
+</body>
+
+</html>

@@ -7,7 +7,7 @@ $pageName = 'mb_register';
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6 mx-auto">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title mb-4 fw-bolder">填寫註冊資料</h5>
@@ -57,31 +57,65 @@ $pageName = 'mb_register';
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 
+<script src="mb_register_valid.js"></script>
 <script>
     function checkForm() {
+
+
+
+
+        // TODO: 檢查欄位資料
+        let isValid = true;
+
+        // if(checkEmpty(item) == true) {
+        //     console.log("密碼不能為空白");
+        // } else if (){
+
+        // } else if (){
+
+        // } else if (){
+
+        // }
+
+        // 驗證密碼規格
+        const inpPassword = document.querySelector('#mbrPassword');
+
+        const Password = inpPassword.value;
+
+        if (checkPassword(Password)) {
+            alert(`Password ${Password}`)
+        } else {
+            alert('請輸入密碼');
+        }
+
+
+        // fetch api
         const fd_r = new FormData(document.mbRegistForm);
+        for (const pair of fd_r.entries()) {
+            console.log(`${pair[0]}, ${pair[1]}`);
+        }
 
         for (let k of fd_r.keys()) {
             console.log(`${k}: ${fd_r.get(k)}`);
+            checkEmpty(fd_r.get(k))
         }
 
-        // TODO: 檢查欄位資料
+        // https://developer.mozilla.org/en-US/docs/Web/API/FormData/entries
 
-        // fetch api
-        fetch('mb_register_api.php', {
-                method: 'POST',
-                body: fd_r,
-            })
-            .then(r => r.json())
-            .then(obj => {
-                console.log(obj);
-                if (!obj.success) {
-                    alert(obj.error);
-                } else {
-                    alert('新增成功');
-                    location.href = 'basepage-no-admin.php';
-                }
-            })
+        // fetch('mb_register_api.php', {
+        //         method: 'POST',
+        //         body: fd_r,
+        //     })
+        //     .then(r => r.json())
+        //     .then(obj => {
+        //         console.log(obj);
+        //         if (!obj.success) {
+        //             alert(obj.error);
+        //         } else {
+        //             alert('新增成功');
+        //             location.href = 'basepage-no-admin.php';
+        //         }
+        //     })
 
     }
 </script>

@@ -51,6 +51,7 @@ if (password_verify($_POST['mblPassword'], $row['member_password'])) {
     exit;
 }
 
+// 每次登入 就更新登入時間
 
 $sql2 = "UPDATE member SET
 `last_login_at`=?

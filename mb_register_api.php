@@ -26,6 +26,14 @@ if (empty($_POST['mbrSurname']) or empty($_POST['mbrForename']) or empty($_POST[
 
 // TODO: 檢查欄位資料
 
+// 帳號不能重複
+
+// function checkDupliAccount(DupliAccount) {
+//     //fetch('server api')
+//     }
+
+// -> 和資料庫比對
+
 $sql = "INSERT INTO `member`(
     `member_surname`,
     `member_forename`,
