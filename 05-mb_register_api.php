@@ -10,6 +10,7 @@ $output = [
     'postData' => $_POST, //除錯用
 ];
 
+// TODO: 檢查欄位資料
 
 if (empty($_POST['mbrSurname']) or empty($_POST['mbrForename']) or empty($_POST['mbrAccount']) or empty($_POST['mbrPassword1']) or empty($_POST['mbrPassword2']) or empty($_POST['mbrCheck'])) {
     $output['error'] = '參數不足';
@@ -18,8 +19,6 @@ if (empty($_POST['mbrSurname']) or empty($_POST['mbrForename']) or empty($_POST[
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit; //結束程式
 }
-
-// TODO: 檢查欄位資料
 
 // 註冊帳號和資料庫比對 不能重複
 $sql1 = "SELECT * FROM member WHERE member_email = ?";

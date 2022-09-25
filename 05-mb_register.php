@@ -151,18 +151,43 @@ $pageName = 'mb_register';
         // - 驗證空白
         if (checkEmpty(Account)) {
 
+
             // - 驗證規格
             const checkError = checkAccount(Account);
             mbrAccount_error.innerHTML = checkError;
 
+            const fd_a = new FormData(document.mbRegistForm);
+
             if (checkError === "") {
                 inpAccount.classList.remove("is-invalid");
                 inpAccount.classList.add("is-valid");
+
+                // - 驗證帳號重複
+
+                fetch('05-mb_regisDuplicate_api.php', {
+                        method: 'POST',
+                        body: fd_a,
+                    })
+                    .then(r => r.json())
+                    .then(obj => {
+                        console.log(obj);
+                        if (!obj.success) {
+                            document.querySelector('#mbrAccount_error').innerHTML = '帳號重複';
+                            inpAccount.classList.add("is-invalid");
+                            return false;
+                        } else {
+                            inpAccount.classList.remove("is-invalid");
+                            inpAccount.classList.add("is-valid");
+                            return true;
+                        }
+                    });
                 return true;
             } else {
                 inpAccount.classList.add("is-invalid");
                 return false;
             }
+
+
 
         } else {
             mbrAccount_error.innerHTML = '請輸入註冊信箱';
@@ -253,6 +278,8 @@ $pageName = 'mb_register';
     }
 
     function checkForm() {
+        debugger
+
         const myModalLS = new bootstrap.Modal(document.getElementById('myModalSuccess'), {
             keyboard: false
         });
@@ -279,7 +306,7 @@ $pageName = 'mb_register';
                     if (!obj.success) {
                         // alert(obj.error); // 後端的錯誤
 
-                        myModal.show();
+                        myModalLS.show();
                         document.querySelector('#modal_header_s').innerHTML = '註冊';
                         document.querySelector('#modal_body_s').innerHTML = obj.error;
 
