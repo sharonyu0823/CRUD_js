@@ -6,4 +6,4 @@ unset($_SESSION['member']);
 
 
 
-header('Location: basepage-no-admin.php');
+header('Location: 05-basepage-no-admin.php');

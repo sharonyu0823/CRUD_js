@@ -48,7 +48,7 @@ $pageName = 'mb_login';
                     alert(obj_l.error);
                 } else {
                     alert('登入成功');
-                    location.href = 'basepage-no-admin.php';;
+                    location.href = '05-basepage-no-admin.php';;
                 }
 
             })

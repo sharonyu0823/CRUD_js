@@ -4,6 +4,7 @@ $pageName = 'mb_edit';
 
 $sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
 
+
 if (empty($sid)) {
     header('Location: 05-mb_list.php');
     exit;
@@ -20,6 +21,7 @@ FROM `member`
 WHERE member_sid = {$sid}";
 
 $r = $pdo->query($sql)->fetch();
+
 if (empty($r)) {
     header('Location: 05-mb_list.php');
     exit;

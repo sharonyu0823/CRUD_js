@@ -26,7 +26,6 @@ $stmt1->execute([$_POST['mblAccount']]);
 $row = $stmt1->fetch();
 
 
-
 // 登入帳號的驗證 去users查看有沒有這組帳號 如果不存在 就回傳錯誤
 if (empty($row)) {
     $output['error'] = '帳號或密碼錯誤';
@@ -35,8 +34,23 @@ if (empty($row)) {
     exit; //結束程式
 }
 
+
 //登入密碼的驗證
-if (password_verify($_POST['mblPassword'], $row['member_password'])) {
+if (!password_verify($_POST['mblPassword'], $row['member_password'])) {
+    $output['error'] = '帳號或密碼錯誤';
+    $output['code'] = 401;
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+// 判斷狀態是啟用還是停用
+
+if (($row['member_status']) === '0') {
+    $output['error'] = '帳號停用';
+    $output['code'] = 801;
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit;
+} else {
     $output['success'] = true;
     $_SESSION['member'] = [
         'sid' => $row['member_sid'],
@@ -44,12 +58,8 @@ if (password_verify($_POST['mblPassword'], $row['member_password'])) {
         'nickname' => $row['member_nickname'],
         'forename' => $row['member_forename'],
     ];
-} else {
-    $output['error'] = '帳號或密碼錯誤';
-    $output['code'] = 401;
-    echo json_encode($output, JSON_UNESCAPED_UNICODE);
-    exit;
 }
+
 
 // 每次登入 就更新登入時間
 

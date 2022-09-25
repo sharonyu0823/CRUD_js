@@ -22,7 +22,7 @@ if (!isset($_SESSION)) {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link <?= $pageName == 'base' ? 'active' : '' ?>" href="basepage-admin.php">首頁</a>
+                        <a class="nav-link <?= $pageName == 'base' ? 'active' : '' ?>" href="05-basepage-admin.php">首頁</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link <?= $pageName == 'mb_list' ? 'active' : '' ?>" href="05-mb_list.php">一般會員</a>

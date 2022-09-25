@@ -10,9 +10,6 @@ $output = [
     'postData' => $_POST, //除錯用
 ];
 
-// 登入帳號密碼的驗證
-// 是不是只能寫required
-
 
 if (empty($_POST['mbrSurname']) or empty($_POST['mbrForename']) or empty($_POST['mbrAccount']) or empty($_POST['mbrPassword1']) or empty($_POST['mbrPassword2']) or empty($_POST['mbrCheck'])) {
     $output['error'] = '參數不足';
@@ -22,17 +19,20 @@ if (empty($_POST['mbrSurname']) or empty($_POST['mbrForename']) or empty($_POST[
     exit; //結束程式
 }
 
-
-
 // TODO: 檢查欄位資料
 
-// 帳號不能重複
+// 註冊帳號和資料庫比對 不能重複
+$sql1 = "SELECT * FROM member WHERE member_email = ?";
+$stmt1 = $pdo->prepare($sql1);
+$stmt1->execute([$_POST['mbrAccount']]);
+$row = $stmt1->fetch();
 
-// function checkDupliAccount(DupliAccount) {
-//     //fetch('server api')
-//     }
-
-// -> 和資料庫比對
+if (!empty($row)) {
+    $output['error'] = '帳號重覆';
+    $output['code'] = 401;
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit; //結束程式
+}
 
 $sql = "INSERT INTO `member`(
     `member_surname`,

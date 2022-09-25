@@ -11,6 +11,7 @@ $pdo->query($sql);
 
 $come_from = '05-mb_list.php';
 
+// 要詢問確認刪除
 if (!empty($_SERVER['HTTP_REFERER'])) {
     $come_from = $_SERVER['HTTP_REFERER'];
 }
