@@ -56,7 +56,7 @@ if (!isset($_SESSION)) {
                             <a class="nav-link"><?= empty($_SESSION['member']['nickname']) ? $_SESSION['member']['forename'] : $_SESSION['member']['nickname'] ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="cursor: pointer;" onclick="Logout()">登出</a>
+                            <a class="nav-link" style="cursor: pointer;" onclick="Logout();">登出</a>
                             <!-- <a class="nav-link" style="cursor: pointer;" href="05-mb_logout.php" onclick="return confirm('確定要登出嗎?')">登出</a> -->
                         </li>
                     <?php endif; ?>
@@ -67,13 +67,73 @@ if (!isset($_SESSION)) {
     </nav>
 </div>
 
+<!-- success modal -->
+<div class="modal" id="myModalSuccess" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal_header_s">Modal Heading</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="modal_body_s">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="modal_footer_s">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- confirm modal -->
+<div class="modal" id="myModalConfirm" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal_header_c">Modal Heading</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="modal_body_c">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="modal_footer_c1">確定</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="modal_footer_c2">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     function Logout() {
+        const myModalLC = new bootstrap.Modal(document.getElementById('myModalConfirm'), {
+            keyboard: false
+        });
 
-        const yes = confirm('確定要登出嗎?');
+        const myModalLS = new bootstrap.Modal(document.getElementById('myModalSuccess'), {
+            keyboard: false
+        });
 
-        if (yes) {
-            location.href = "05-mb_logout.php";
-        }
+        myModalLC.show();
+        document.querySelector('#modal_header_c').innerHTML = '登出';
+        document.querySelector('#modal_body_c').innerHTML = '確定要登出嗎?';
+        document.querySelector('#modal_footer_c1').addEventListener('click', () => {
+            myModalLS.show();
+            document.querySelector('#modal_header_s').innerHTML = '登出';
+            document.querySelector('#modal_body_s').innerHTML = '登出成功';
+            document.querySelector('#modal_footer_s').addEventListener('click', () => {
+                location.href = "05-mb_logout.php";
+            })
+        })
     }
 </script>

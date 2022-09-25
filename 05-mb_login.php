@@ -30,12 +30,39 @@ $pageName = 'mb_login';
         </div>
     </div>
 </div>
+<?php /*<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal_header">Modal Heading</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="modal_body">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="modal_footer">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div> */ ?>
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 
 <script>
     function checkForm() {
+
         const fd_l = new FormData(document.mbLoginForm);
+
+        const myModalLS = new bootstrap.Modal(document.getElementById('myModalSuccess'), {
+            keyboard: false
+        });
 
         fetch('05-mb_login_api.php', {
                 method: 'POST',
@@ -45,10 +72,17 @@ $pageName = 'mb_login';
             .then(obj_l => {
                 console.log(obj_l);
                 if (!obj_l.success) {
-                    alert(obj_l.error);
+                    myModalLS.show();
+                    document.querySelector('#modal_header_s').innerHTML = '登入';
+                    document.querySelector('#modal_body_s').innerHTML = obj_l.error;
+
                 } else {
-                    alert('登入成功');
-                    location.href = '05-basepage-no-admin.php';;
+                    myModalLS.show();
+                    document.querySelector('#modal_header_s').innerHTML = '登入';
+                    document.querySelector('#modal_body_s').innerHTML = '登入成功';
+                    document.querySelector('#modal_footer_s').addEventListener('click', () => {
+                        location.href = '05-basepage-no-admin.php';;
+                    });
                 }
 
             })

@@ -62,7 +62,7 @@ $pageName = 'mb_register';
         </div>
     </div>
 </div>
-<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+<?php /* <div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -83,9 +83,7 @@ $pageName = 'mb_register';
 
         </div>
     </div>
-</div>
-
-
+</div> */ ?>
 
 
 <!-- reference: https://www.momoshop.com.tw/customer/CustomerInput.jsp -->
@@ -95,9 +93,6 @@ $pageName = 'mb_register';
 
 <script src="05-mb_register_valid.js"></script>
 <script>
-    const myModal = new bootstrap.Modal(document.getElementById('myModal'), {
-        keyboard: false
-    })
     // 驗證姓名
 
     function checkSurname() {
@@ -258,6 +253,9 @@ $pageName = 'mb_register';
     }
 
     function checkForm() {
+        const myModalLS = new bootstrap.Modal(document.getElementById('myModalSuccess'), {
+            keyboard: false
+        });
 
         const a = checkSurname();
         const b = checkForename();
@@ -282,14 +280,14 @@ $pageName = 'mb_register';
                         // alert(obj.error); // 後端的錯誤
 
                         myModal.show();
-                        document.querySelector('#modal_header').innerHTML = '註冊';
-                        document.querySelector('#modal_body').innerHTML = obj.error;
+                        document.querySelector('#modal_header_s').innerHTML = '註冊';
+                        document.querySelector('#modal_body_s').innerHTML = obj.error;
 
                     } else {
-                        myModal.show();
-                        document.querySelector('#modal_header').innerHTML = '註冊';
-                        document.querySelector('#modal_body').innerHTML = '註冊成功';
-                        document.querySelector('#modal_footer').addEventListener('click', () => {
+                        myModalLS.show();
+                        document.querySelector('#modal_header_s').innerHTML = '註冊';
+                        document.querySelector('#modal_body_s').innerHTML = '註冊成功';
+                        document.querySelector('#modal_footer_s').addEventListener('click', () => {
                             location.href = '05-basepage-no-admin.php';
                         })
 
