@@ -63,11 +63,10 @@ $output = [
 <?php include __DIR__ . '/parts/05-nav-bar-admin.php'; ?>
 
 <div class="container">
-
-    <div class="rol">
+    <div class="row d-flex justify-content-between align-items-end">
         <div class="col">
             <nav aria-label="Page navigation example">
-                <ul class="pagination">
+                <ul class="pagination m-0">
                     <?php /*<li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
                         <a class="page-link" href="?page=<?= $page = 1 ?>">
                             <i class="fa-solid fa-angles-left"></i>
@@ -130,10 +129,25 @@ $output = [
                 </ul>
             </nav>
         </div>
+        <div class="col d-flex justify-content-end">
+            <div class="search m-0">
+                <input class="search-bar h-100" type="text" name="search" id="search" placeholder="輸入名稱">
+                <button class="search-btn h-100">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
     </div>
-
-
-
+    <!-- <div class="row">
+        <div class="col">
+            <div class="search">
+                <input class="search-bar" type="text" name="search" id="search" placeholder="輸入名稱">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div> -->
     <div class="row">
         <div class="col">
             <table class="table table-striped">
