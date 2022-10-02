@@ -1,5 +1,6 @@
 <?php require __DIR__ . '/parts/connect_db.php';
 
+// 頁數
 $pageName = 'mb_list';
 
 $perPage = 8; //一頁有幾筆
@@ -44,7 +45,6 @@ $output = [
     '$rows' => $rows,
 ];
 
-
 // echo json_encode($output);
 // exit;
 
@@ -66,8 +66,8 @@ $output = [
 
     <div class="rol">
         <div class="col">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
+            <nav class="d-flex justify-content-between" aria-label="Page navigation example">
+                <ul class="pagination" id="page_search">
                     <?php /*<li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
                         <a class="page-link" href="?page=<?= $page = 1 ?>">
                             <i class="fa-solid fa-angles-left"></i>
@@ -128,13 +128,15 @@ $output = [
                     </li>
 
                 </ul>
+                <form name="searchForm" class="d-inline-flex" role="search" onsubmit="checkForm(); return false;">
+                    <input class="form-control py-0 mb-3 me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+                    <button class="btn btn-outline-success mb-3" type="submit">Search</button>
+                </form>
             </nav>
         </div>
     </div>
 
-
-
-    <div class="row">
+    <div class=" row">
         <div class="col">
             <table class="table table-striped">
                 <thead>
@@ -155,7 +157,7 @@ $output = [
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="member_search">
                     <?php foreach ($rows as $r) : ?>
                         <tr>
                             <td>
@@ -190,5 +192,116 @@ $output = [
 </div>
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
+<script>
+    let page = <?= $page; ?>;
+    // console.log(page);
+
+    function checkForm() {
+        const fd = new FormData(document.searchForm);
+
+        fetch('05-mb_list_search_api.php', {
+                method: 'POST',
+                body: fd,
+            })
+            .then(r => r.json())
+            .then(obj => {
+                if (obj.success) {
+                    console.log('sucess');
+                    console.log(obj);
+                    let rows = obj.rows;
+                    let datas = [];
+                    for (let row of rows) {
+
+                        let {
+                            member_sid,
+                            member_surname,
+                            member_forename,
+                            member_nickname,
+                            member_email,
+                            created_at,
+                            last_login_at,
+                            member_status
+                        } = row;
+                        datas.push(
+                            `<tr>
+                            <td>
+                                <a href="05-mb_delete.php?sid=${member_sid}" onclick="return confirm('確定要刪除編號${member_sid}: ${member_surname}${member_forename}的資料嗎?')">
+                                    <i class="fa-solid fa-trash-can trash"></i>
+                                </a>
+                            </td>
+                            <td id="member_sid">${member_sid}</td>
+                            <td>${member_surname}</td>
+                            <td>${member_forename}</td>
+                            <td>${member_nickname}</td>
+                            <td>${member_email}</td>
+                            <td>${created_at}</td>
+                            <td>${last_login_at}</td>
+                            <td>${member_status === 1 ? '啟用' : '停用'}</td>
+                            <td>
+                                <a href="05-mb_edit.php?sid=${member_sid}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            </td>
+                        </tr>`);
+                    }
+
+                    document.querySelector('#member_search').innerHTML = datas.join("");
+
+                    let totalPages = obj.s_totalPages;
+                    // console.log(totalPages);
+                    // let page =
+                    let pages = [];
+
+                    pages.push(`<li class="page-item disabled">
+                        <a class="page-link" href="?page=1">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </a>
+                        </li>
+                        <li class="page-item disabled">
+                        <a class="page-link" href="?page=0">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </a>
+                    </li>`);
+
+                    for (let i = 1; i <= totalPages; i++) {
+                        if (i > 7) {
+                            break;
+                        }
+                        console.log(i);
+                        console.log(page);
+                        pages.push(
+                            `
+                            <li class="page-item ${1 === i? 'active': ''}">
+                        <a class="page-link" href="?page=${i}">${i}</a>
+                    </li>`);
+                    }
+
+                    pages.push(
+                        `
+                    <li class="page-item ">
+                        <a class="page-link" href="?page=2">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item ">
+                        <a class="page-link" href="?page=${totalPages}">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </a>
+                    </li>
+                    `);
+
+                    document.querySelector('#page_search').innerHTML = pages.join("");
+
+                    // `<li class="page-item active">
+                    //     <a class="page-link" href="?page=">1</a>
+                    // </li>`;
+
+                } else {
+                    console.log('false');
+                }
+
+            })
+    }
+</script>
 
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
