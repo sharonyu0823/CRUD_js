@@ -63,8 +63,7 @@ $output = [
 <?php include __DIR__ . '/parts/05-nav-bar-admin.php'; ?>
 
 <div class="container">
-
-    <div class="rol">
+    <div class="row d-flex justify-content-between align-items-end">
         <div class="col">
             <nav class="d-flex justify-content-between" aria-label="Page navigation example">
                 <ul class="pagination" id="page_search">

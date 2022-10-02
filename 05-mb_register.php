@@ -278,7 +278,6 @@ $pageName = 'mb_register';
     }
 
     function checkForm() {
-        debugger
 
         const myModalLS = new bootstrap.Modal(document.getElementById('myModalSuccess'), {
             keyboard: false
