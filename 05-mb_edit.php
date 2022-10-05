@@ -96,6 +96,8 @@ if (empty($r)) {
             console.log(`${k}: ${fd.get(k)}`);
         }
 
+        // 查出舊資料
+
         // TODO: 檢查欄位資料
 
         fetch('05-mb_edit_api.php', {

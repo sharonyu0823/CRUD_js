@@ -1,6 +1,13 @@
 <?php
 require __DIR__ . '/parts/connect_db.php';
 
+$output = [
+    'success' => false,
+    'error' => '',
+    'code' => 0,
+    'postData' => $_POST, //除錯用
+];
+
 // 註冊帳號和資料庫比對 不能重複
 $sql1 = "SELECT * FROM member WHERE member_email = ?";
 $stmt1 = $pdo->prepare($sql1);

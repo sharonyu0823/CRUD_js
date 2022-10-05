@@ -159,8 +159,8 @@ $pageName = 'mb_register';
             const fd_a = new FormData(document.mbRegistForm);
 
             if (checkError === "") {
-                inpAccount.classList.remove("is-invalid");
-                inpAccount.classList.add("is-valid");
+                // inpAccount.classList.remove("is-invalid");
+                // inpAccount.classList.add("is-valid");
 
                 // - 驗證帳號重複
 

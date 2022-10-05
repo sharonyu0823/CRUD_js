@@ -10,8 +10,8 @@ $output = [
 ];
 
 $perPage = 8;
-$page3 = $_POST['page1']; //be care
-
+$page = 1; //be care
+$s_page = isset($_GET['s_page']) ? intval($_GET['s_page']) : 1;
 
 $s_sql = "SELECT COUNT(1) FROM `member` WHERE `member_surname` LIKE ?";
 $stmt1 = $pdo->prepare($s_sql);
@@ -19,12 +19,10 @@ $stmt1->execute(["%{$_POST['keyword']}%"]);
 $s_totalRows = $stmt1->fetch(PDO::FETCH_NUM)[0];
 $s_totalPages = ceil($s_totalRows / $perPage);
 
-
-
 $s_rows = [];
 
 
-$sql = sprintf("SELECT * FROM member WHERE `member_surname` LIKE ? ORDER BY member_sid ASC LIMIT %s, %s", ($page3 - 1) * $perPage, $perPage);
+$sql = sprintf("SELECT * FROM member WHERE `member_surname` LIKE ? ORDER BY member_sid ASC LIMIT %s, %s", ($s_page - 1) * $perPage, $perPage);
 $stmt = $pdo->prepare($sql);
 $stmt->execute(["%{$_POST['keyword']}%"]);
 $s_rows = $stmt->fetchAll();
@@ -33,7 +31,7 @@ $s_rows = $stmt->fetchAll();
 $output = [
     's_totalRows' => $s_totalRows,
     's_totalPages' => $s_totalPages,
-    'page2' => $page3,
+    's_page' => $s_page,
     's_rows' => $s_rows,
 ];
 

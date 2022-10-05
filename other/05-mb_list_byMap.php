@@ -1,4 +1,4 @@
-<?php /* require __DIR__ . '/parts/connect_db.php';
+<?php require __DIR__ . '/parts/connect_db.php';
 
 // 頁數
 $pageName = 'mb_list';
@@ -48,7 +48,7 @@ $output = [
 // echo json_encode($output);
 // exit;
 
-*/ ?>
+?>
 
 <?php include __DIR__ . '/parts/html-head.php'; ?>
 <style>
@@ -67,13 +67,18 @@ $output = [
         <div class="col">
             <nav class="d-flex justify-content-between" aria-label="Page navigation example">
                 <ul class="pagination" id="page_search">
-                    <?php /* <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                        <a class="page-link" onclick="changePage(1)">
+                    <?php /*<li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page = 1 ?>">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </a>
+                    </li> */ ?>
+                    <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page == 1 ?>">
                             <i class="fa-solid fa-angles-left"></i>
                         </a>
                     </li>
                     <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                        <a class="page-link" onclick="changePage(<?= $page - 1 ?>)">
+                        <a class="page-link" href="?page=<?= $page - 1 ?>">
                             <i class="fa-solid fa-chevron-left"></i>
                         </a>
                     </li>
@@ -101,7 +106,7 @@ $output = [
 
                     ?>
                         <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                            <a class="page-link" onclick="changePage(<?= $i ?>)"><?= $i ?></a>
+                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                         </li>
 
                     <?php
@@ -111,15 +116,15 @@ $output = [
                     ?>
 
                     <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                        <a class="page-link" onclick="changePage(<?= $page + 1 ?>)">
+                        <a class="page-link" href="?page=<?= $page + 1 ?>">
                             <i class="fa-solid fa-chevron-right"></i>
                         </a>
                     </li>
                     <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                        <a class="page-link" onclick="changePage(<?= $totalPages ?>)">
+                        <a class="page-link" href="?page=<?= $totalPages ?>">
                             <i class="fa-solid fa-angles-right"></i>
                         </a>
-                    </li> */ ?>
+                    </li>
 
                 </ul>
                 <form name="searchForm" class="d-inline-flex" role="search" onsubmit="checkForm(); return false;">
@@ -152,7 +157,7 @@ $output = [
                     </tr>
                 </thead>
                 <tbody id="member_search">
-                    <?php /*<?php foreach ($rows as $r) : ?>
+                    <?php foreach ($rows as $r) : ?>
                         <tr>
                             <td>
                                 <a href="05-mb_delete.php?sid=<?= $r['member_sid'] ?>" onclick="return confirm('確定要刪除編號<?= $r['member_sid'] ?>: <?= $r['member_surname'] ?><?= $r['member_forename'] ?>的資料嗎?')">
@@ -176,7 +181,7 @@ $output = [
                                 </a>
                             </td>
                         </tr>
-                    <?php endforeach; ?> */ ?>
+                    <?php endforeach; ?>
                 </tbody>
 
             </table>
@@ -187,12 +192,11 @@ $output = [
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
-    checkForm();
+    let page = <?= $page; ?>;
+    // console.log(page);
 
     function checkForm() {
         const fd = new FormData(document.searchForm);
-        fd.append('page1', 1); //加一個page預設1 是要讓搜尋完就直接在第一頁
-        console.log(fd);
 
         fetch('05-mb_list_search_api.php', {
                 method: 'POST',
@@ -202,12 +206,17 @@ $output = [
             .then(obj => {
                 if (obj.success) {
                     console.log('sucess');
-
-                    let rows = obj.s_rows;
-
-                    // === search bar ====
-                    let datas = [];
-                    for (let row of rows) {
+                    // console.log(obj);
+                    // console.log(obj.rows);
+                    let rows = obj.rows;
+                    let datas = rows.map((value, index, array) => {
+                        console.log(value);
+                        // console.log(index);
+                        // console.log(array);
+                        // console.log(array[0]);
+                        // console.log(array[0].member_sid);
+                        // console.log(array[1]);
+                        // console.log(array[2]);
 
                         let {
                             member_sid,
@@ -218,8 +227,8 @@ $output = [
                             created_at,
                             last_login_at,
                             member_status
-                        } = row;
-                        datas.push(
+                        } = value;
+                        return (
                             `<tr>
                             <td>
                                 <a href="05-mb_delete.php?sid=${member_sid}" onclick="return confirm('確定要刪除編號${member_sid}: ${member_surname}${member_forename}的資料嗎?')">
@@ -240,23 +249,22 @@ $output = [
                                 </a>
                             </td>
                         </tr>`);
-                    }
+                    });
 
                     document.querySelector('#member_search').innerHTML = datas.join("");
 
-                    // === pagination調整 ====
                     let totalPages = obj.s_totalPages;
-                    let page = obj.page2;
                     // console.log(totalPages);
+                    // let page =
                     let pages = [];
 
                     pages.push(`<li class="page-item disabled">
-                        <a class="page-link" onclick="changePage(1)">
+                        <a class="page-link" href="?page=1">
                             <i class="fa-solid fa-angles-left"></i>
                         </a>
                         </li>
                         <li class="page-item disabled">
-                        <a class="page-link" onclick="changePage(${page - 1})">
+                        <a class="page-link" href="?page=0">
                             <i class="fa-solid fa-chevron-left"></i>
                         </a>
                     </li>`);
@@ -265,27 +273,24 @@ $output = [
                         if (i > 7) {
                             break;
                         }
-
+                        console.log(i);
+                        console.log(page);
                         pages.push(
                             `
-                            <li class="page-item ${+page === i? 'active': ''}">
-                        <a class="page-link" onclick="changePage(${i})">${i}</a>
+                            <li class="page-item ${1 === i? 'active': ''}">
+                        <a class="page-link" href="?page=${i}">${i}</a>
                     </li>`);
-
-                        console.log('page', typeof(page)); //string
-                        console.log('i', typeof(i)); //intval
                     }
-
 
                     pages.push(
                         `
-                    <li class="page-item ${totalPages > 1 ? '': 'disabled'}">
-                        <a class="page-link" onclick="changePage(${page + 1})">
+                    <li class="page-item ">
+                        <a class="page-link" href="?page=2">
                             <i class="fa-solid fa-chevron-right"></i>
                         </a>
                     </li>
-                    <li class="page-item ${totalPages > 1 ? '': 'disabled'}">
-                        <a class="page-link" onclick="changePage(${totalPages})">
+                    <li class="page-item ">
+                        <a class="page-link" href="?page=${totalPages}">
                             <i class="fa-solid fa-angles-right"></i>
                         </a>
                     </li>
@@ -296,111 +301,6 @@ $output = [
                     // `<li class="page-item active">
                     //     <a class="page-link" href="?page=">1</a>
                     // </li>`;
-
-                } else {
-                    console.log('false');
-                }
-
-            })
-    }
-
-    function changePage(page) {
-        const fd = new FormData(document.searchForm);
-        fd.append('page1', page);
-
-        fetch('05-mb_list_search_api.php', {
-                method: 'POST',
-                body: fd,
-            })
-            .then(r => r.json())
-            .then(obj => {
-                if (obj.success) {
-                    console.log('sucess');
-
-                    let rows = obj.s_rows;
-
-                    // === search bar ====
-                    let datas = [];
-                    for (let row of rows) {
-
-                        let {
-                            member_sid,
-                            member_surname,
-                            member_forename,
-                            member_nickname,
-                            member_email,
-                            created_at,
-                            last_login_at,
-                            member_status
-                        } = row;
-                        datas.push(
-                            `<tr>
-                            <td>
-                                <a href="05-mb_delete.php?sid=${member_sid}" onclick="return confirm('確定要刪除編號${member_sid}: ${member_surname}${member_forename}的資料嗎?')">
-                                    <i class="fa-solid fa-trash-can trash"></i>
-                                </a>
-                            </td>
-                            <td id="member_sid">${member_sid}</td>
-                            <td>${member_surname}</td>
-                            <td>${member_forename}</td>
-                            <td>${member_nickname}</td>
-                            <td>${member_email}</td>
-                            <td>${created_at}</td>
-                            <td>${last_login_at}</td>
-                            <td>${member_status === 1 ? '啟用' : '停用'}</td>
-                            <td>
-                                <a href="05-mb_edit.php?sid=${member_sid}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                            </td>
-                        </tr>`);
-                    }
-
-                    document.querySelector('#member_search').innerHTML = datas.join("");
-
-                    // === pagination調整 ====
-                    let totalPages = obj.s_totalPages;
-                    let pages = [];
-
-                    pages.push(`<li class="page-item ${page === 1? 'disabled': ''}">
-                        <a class="page-link" onclick="changePage(1)">
-                            <i class="fa-solid fa-angles-left"></i>
-                        </a>
-                        </li>
-                        <li class="page-item ${page === 1? 'disabled': ''}">
-                        <a class="page-link" onclick="changePage(${page - 1})">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </a>
-                    </li>`);
-
-                    for (let i = 1; i <= totalPages; i++) {
-                        if (i > 7) {
-                            break;
-                        }
-
-                        pages.push(
-                            `
-                            <li class="page-item ${page === i? 'active': ''}">
-                        <a class="page-link" onclick="changePage(${i})">${i}</a>
-                    </li>`);
-                    }
-
-                    pages.push(
-                        `
-                    <li class="page-item ${page === totalPages ? 'disabled': ''}">
-                        <a class="page-link" onclick="changePage(${page + 1})">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </a>
-                    </li>
-                    <li class="page-item ${page === totalPages ? 'disabled': ''}">
-                        <a class="page-link" onclick="changePage(${totalPages})">
-                            <i class="fa-solid fa-angles-right"></i>
-                        </a>
-                    </li>
-                    `);
-
-                    document.querySelector('#page_search').innerHTML = pages.join("");
-
 
                 } else {
                     console.log('false');
