@@ -142,7 +142,7 @@ $pageName = 'mb_register';
 
 
     // 驗證信箱
-    function checkEmail() {
+    async function checkEmail() {
         const inpAccount = document.querySelector('#mbrAccount');
         let Account = inpAccount.value;
 
@@ -163,10 +163,9 @@ $pageName = 'mb_register';
                 // inpAccount.classList.add("is-valid");
 
                 // - 驗證帳號重複
+                console.log('regisDuplicate api start');
 
-                console.log('registerDuplicate api start');
-
-                fetch('05-mb_regisDuplicate_api.php', {
+                const result = await fetch('05-mb_regisDuplicate_api.php', {
                         method: 'POST',
                         body: fd_a,
                     })
@@ -183,8 +182,7 @@ $pageName = 'mb_register';
                             return true;
                         }
                     });
-                return true;
-                // 我還不確定他是不是重複帳號 但卻要先去檢查其他的 所以就先跟他說帳號沒錯 先跳過處理
+                return result;
             } else {
                 inpAccount.classList.add("is-invalid");
                 return false;
@@ -280,8 +278,7 @@ $pageName = 'mb_register';
         }
     }
 
-    function checkForm() {
-
+    async function checkForm() {
         console.log('checkForm start');
 
         const myModalLS = new bootstrap.Modal(document.getElementById('myModalSuccess'), {
@@ -290,19 +287,20 @@ $pageName = 'mb_register';
 
         const a = checkSurname();
         const b = checkForename();
-        const c = checkEmail();
+        const c = await checkEmail();
         const d = checkPassword1();
         const e = checkPassword2();
         const f = checkCheck();
+
+        console.log('c: ', c);
 
         if (a && b && c && d && e && f) {
             const fd_r = new FormData(document.mbRegistForm);
 
             // fetch api
-
             console.log('register api start');
 
-            fetch('05-mb_register_api.php', {
+            await fetch('05-mb_register_api.php', {
                     method: 'POST',
                     body: fd_r,
                 })

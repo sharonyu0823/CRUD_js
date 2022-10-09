@@ -164,8 +164,6 @@ $pageName = 'mb_register';
 
                 // - 驗證帳號重複
 
-                console.log('registerDuplicate api start');
-
                 fetch('05-mb_regisDuplicate_api.php', {
                         method: 'POST',
                         body: fd_a,
@@ -184,7 +182,6 @@ $pageName = 'mb_register';
                         }
                     });
                 return true;
-                // 我還不確定他是不是重複帳號 但卻要先去檢查其他的 所以就先跟他說帳號沒錯 先跳過處理
             } else {
                 inpAccount.classList.add("is-invalid");
                 return false;
@@ -281,8 +278,7 @@ $pageName = 'mb_register';
     }
 
     function checkForm() {
-
-        console.log('checkForm start');
+        console.log('checkform start');
 
         const myModalLS = new bootstrap.Modal(document.getElementById('myModalSuccess'), {
             keyboard: false
@@ -290,44 +286,93 @@ $pageName = 'mb_register';
 
         const a = checkSurname();
         const b = checkForename();
-        const c = checkEmail();
+        // const c = checkEmail();
         const d = checkPassword1();
         const e = checkPassword2();
         const f = checkCheck();
 
-        if (a && b && c && d && e && f) {
-            const fd_r = new FormData(document.mbRegistForm);
+        const inpAccount = document.querySelector('#mbrAccount');
+        let Account = inpAccount.value;
 
-            // fetch api
+        const mbrAccount_error = document.querySelector('#mbrAccount_error');
 
-            console.log('register api start');
+        // - 驗證空白
+        if (checkEmpty(Account)) {
 
-            fetch('05-mb_register_api.php', {
-                    method: 'POST',
-                    body: fd_r,
-                })
-                .then(r => r.json())
-                .then(obj => {
-                    console.log(obj);
-                    if (!obj.success) {
-                        // alert(obj.error); // 後端的錯誤
 
-                        myModalLS.show();
-                        document.querySelector('#modal_header_s').innerHTML = '註冊';
-                        document.querySelector('#modal_body_s').innerHTML = obj.error;
+            // - 驗證規格
+            const checkError = checkAccount(Account);
+            mbrAccount_error.innerHTML = checkError;
 
-                    } else {
-                        myModalLS.show();
-                        document.querySelector('#modal_header_s').innerHTML = '註冊';
-                        document.querySelector('#modal_body_s').innerHTML = '註冊成功';
-                        document.querySelector('#modal_footer_s').addEventListener('click', () => {
-                            location.href = '05-basepage-no-admin.php';
-                        })
+            const fd_a = new FormData(document.mbRegistForm);
 
-                        // alert('新增成功');
-                        // location.href = '05-basepage-no-admin.php';
-                    }
-                })
+            if (checkError === "") {
+                // inpAccount.classList.remove("is-invalid");
+                // inpAccount.classList.add("is-valid");
+
+                // - 驗證帳號重複
+                console.log('regisDuplicate api start');
+
+                fetch('05-mb_regisDuplicate_api.php', {
+                        method: 'POST',
+                        body: fd_a,
+                    })
+                    .then(r => r.json())
+                    .then(obj => {
+                        console.log(obj);
+                        if (!obj.success) {
+                            document.querySelector('#mbrAccount_error').innerHTML = '帳號重複';
+                            inpAccount.classList.add("is-invalid");
+
+                        } else {
+
+                            inpAccount.classList.remove("is-invalid");
+                            inpAccount.classList.add("is-valid");
+
+                            if (a && b && d && e && f) {
+                                const fd_r = new FormData(document.mbRegistForm);
+
+                                // fetch api
+
+                                console.log('register api start');
+
+                                fetch('05-mb_register_api.php', {
+                                        method: 'POST',
+                                        body: fd_r,
+                                    })
+                                    .then(r => r.json())
+                                    .then(obj => {
+                                        console.log(obj);
+                                        if (!obj.success) {
+                                            // alert(obj.error); // 後端的錯誤
+
+                                            myModalLS.show();
+                                            document.querySelector('#modal_header_s').innerHTML = '註冊';
+                                            document.querySelector('#modal_body_s').innerHTML = obj.error;
+
+                                        } else {
+                                            myModalLS.show();
+                                            document.querySelector('#modal_header_s').innerHTML = '註冊';
+                                            document.querySelector('#modal_body_s').innerHTML = '註冊成功';
+                                            document.querySelector('#modal_footer_s').addEventListener('click', () => {
+                                                location.href = '05-basepage-no-admin.php';
+                                            })
+
+                                            // alert('新增成功');
+                                            // location.href = '05-basepage-no-admin.php';
+                                        }
+                                    })
+                            }
+                        }
+                    });
+
+            } else {
+                inpAccount.classList.add("is-invalid");
+            }
+
+        } else {
+            mbrAccount_error.innerHTML = '請輸入註冊信箱';
+            inpAccount.classList.add("is-invalid");
         }
 
         console.log('checkForm end');
