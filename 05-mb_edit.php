@@ -247,10 +247,10 @@ if (empty($sid)) {
 
         myModalLC.show();
         document.querySelector('#modal_header_c').innerHTML = '啟用/停用';
-        document.querySelector('#modal_body_c').innerHTML = '確定要啟用嗎?';
+        document.querySelector('#modal_body_c').innerHTML = '確定要啟用嗎?'; //這時候radio還是保持在原本的樣子
         document.querySelector('#modal_footer_c1').addEventListener('click', () => {
             // 設定畫面要變成甚麼樣子
-
+            // 按下確定後 radio會變成enable 如下兩行所示
             document.querySelector("#enable").checked = true;
             document.querySelector("#disable").checked = false;
             // document.querySelector("#enable").checked = e.target.value === '1' ? true : false;
@@ -259,7 +259,6 @@ if (empty($sid)) {
             myModalLS.show();
             document.querySelector('#modal_header_s').innerHTML = '啟用/停用';
             document.querySelector('#modal_body_s').innerHTML = '啟用成功';
-            document.querySelector('#modal_footer_s').addEventListener('click', () => {});
         })
 
     }
@@ -280,7 +279,6 @@ if (empty($sid)) {
             myModalLS.show();
             document.querySelector('#modal_header_s').innerHTML = '啟用/停用';
             document.querySelector('#modal_body_s').innerHTML = '停用成功';
-            // document.querySelector('#modal_footer_s').addEventListener('click', () => {});
         })
 
     }
