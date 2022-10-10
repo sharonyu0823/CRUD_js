@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="inputMail">
+    <input type="button" id="button" value="click">
+
+    <script>
+        // 1.
+        const inputMail = document.querySelector('#inputMail');
+        inputMail.addEventListener('input', event => {
+            console.log(event);
+            console.log(event.target); //<input type="text" id="inputMail">
+            console.log(event.type); //input
+            console.log(event.target.value); //1 which I type in column
+        })
+
+        // 2.
+
+        // document.querySelector('#inputMail').addEventListener('input', event => {
+        //     console.log(event);
+        //     console.log(event.target); //<input type="text" id="inputMail">
+        //     console.log(event.type); //input
+        //     console.log(event.target.value); //1 which I type in column
+        // })
+
+    </script>
+</body>
+
+</html>
