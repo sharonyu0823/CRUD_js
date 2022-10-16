@@ -272,9 +272,9 @@ $output = [
                     // === pagination調整 ====
                     let totalPages = obj.s_totalPages;
                     let page = +obj.page2;
-                    let showPage = 6;
+                    let showPage = 7; //每次要顯示幾筆分頁 只能設為 單數 1 3 5 7 9 若設為 雙數一樣會加1 ex 設為 2 最終顯示還是3 可變動
                     let left = 1; //預設值
-                    let cut = Math.floor(showPage / 2);
+                    let cut = Math.floor(showPage / 2); //以目前所在頁次 為中心 往左右各顯示幾個頁次 以無條件捨去
                     let right = totalPages; //預設值
 
                     let pages = [];
@@ -292,24 +292,29 @@ $output = [
 
                     if (totalPages > showPage) { //若總頁數大於 每次要顯示幾筆分頁 才要執行以下片段
                         // debugger
+                        //若所在頁面小於分割數
                         if (page <= cut) {
                             left = page - 1;
                         } else {
                             left = cut;
-                        } //若所在頁面小於分割數
+                        }
+                        //若所在頁面大於 總分頁數-分割數
                         if (page > totalPages - cut) {
                             right = (page == totalPages ? 0 : 1);
                             left += left - right;
                         } else {
                             right = cut + (cut - left);
-                        } //若所在頁面小於 總分頁數-分割數
+                        }
                         left = page - left; //以目前頁次為中心點 往左要顯示多少頁面
 
                         right = page + right; //以目前頁次為中心點 往右要顯示多少頁面
                     }
 
-                    console.log(obj.s_totalPages);
-                    console.log(totalPages);
+                    // console.log(obj.page2); // 1
+                    // console.log(typeof obj.page2); //string
+                    // console.log(page + 7); // 17
+                    // console.log(obj.s_totalPages);
+                    // console.log(totalPages);
 
                     for (let i = left; i <= right; i++) {
 
@@ -523,6 +528,8 @@ $output = [
                 }
             });
     }
+
+    // reference: 分頁: https://www.webteach.tw/?p=4226
 </script>
 
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
